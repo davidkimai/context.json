@@ -1,0 +1,151 @@
+{
+  "$schema": "https://contextjson.org/schemas/context.v1.json",
+  "title": "Context JSON: Open Standard for AI Context and Collaboration",
+  "description": "Defines portable, machine- and human-readable context for AI models, agents, and applications, enabling composable and auditable collaboration across any platform.",
+  "type": "object",
+  "required": [
+    "context_id",
+    "version",
+    "purpose",
+    "actors",
+    "sources",
+    "instructions",
+    "boundaries",
+    "history",
+    "timestamp"
+  ],
+  "properties": {
+    "context_id": {
+      "type": "string",
+      "description": "Unique identifier for this context (UUID or deterministic hash)."
+    },
+    "version": {
+      "type": "string",
+      "description": "Context JSON protocol version."
+    },
+    "purpose": {
+      "type": "string",
+      "description": "Clear, short statement of the intended outcome or goal for this context (e.g. 'summarize research', 'co-edit legal document', 'customer support session')."
+    },
+    "actors": {
+      "type": "array",
+      "description": "All human users, AI models, or services collaborating within this context.",
+      "items": {
+        "type": "object",
+        "required": ["actor_id", "role", "type"],
+        "properties": {
+          "actor_id": {
+            "type": "string",
+            "description": "Unique identifier or reference (e.g., email, model name, system name)."
+          },
+          "role": {
+            "type": "string",
+            "description": "Short human-readable role in the session (e.g., 'user', 'assistant', 'reviewer', 'retriever', 'summarizer')."
+          },
+          "type": {
+            "type": "string",
+            "enum": ["human", "AI", "service", "system"],
+            "description": "Actor type."
+          },
+          "details": {
+            "type": "object",
+            "description": "Optional metadata about the actor (e.g., capabilities, limitations, settings, version)."
+          }
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "description": "External knowledge, data, or documents referenced or made available in this context.",
+      "items": {
+        "type": "object",
+        "required": ["type", "uri"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["text", "document", "api", "database", "website", "model", "file"],
+            "description": "Type of source."
+          },
+          "uri": {
+            "type": "string",
+            "description": "URI or path to the source (URL, local file, etc.)."
+          },
+          "description": {
+            "type": "string",
+            "description": "Optional summary or notes about this source."
+          }
+        }
+      }
+    },
+    "instructions": {
+      "type": "array",
+      "description": "Explicit, step-by-step instructions, rules, or constraints for all agents/actors (e.g., summarization instructions, privacy requirements, output format).",
+      "items": {
+        "type": "string"
+      }
+    },
+    "boundaries": {
+      "type": "object",
+      "description": "Explicit constraints for data use, privacy, scope, or output (e.g., max tokens, redaction rules, privacy limits).",
+      "properties": {
+        "context_window": {
+          "type": "integer",
+          "description": "Max number of tokens or words to use as immediate context."
+        },
+        "privacy": {
+          "type": "string",
+          "enum": ["public", "private", "confidential", "restricted"],
+          "description": "Privacy level for the session and all data."
+        },
+        "output_format": {
+          "type": "string",
+          "description": "Required output format (e.g., 'markdown', 'json', 'plaintext', etc.)."
+        },
+        "other_constraints": {
+          "type": "array",
+          "description": "Other rules (e.g., no external API calls, specific redactions, etc.).",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "history": {
+      "type": "array",
+      "description": "Chronological record of all key events, messages, edits, or interactions (audit log).",
+      "items": {
+        "type": "object",
+        "required": ["timestamp", "actor_id", "event_type", "content"],
+        "properties": {
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the event happened (ISO 8601)."
+          },
+          "actor_id": {
+            "type": "string",
+            "description": "ID of actor performing the action."
+          },
+          "event_type": {
+            "type": "string",
+            "description": "Type of event (e.g., 'message', 'edit', 'upload', 'api_call', 'completion')."
+          },
+          "content": {
+            "type": "string",
+            "description": "Content or details (may be truncated or summarized)."
+          }
+        }
+      }
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when this context.json was created or last updated."
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Extensible field for any domain- or application-specific configuration, protocol links, or metadata.",
+      "additionalProperties": true
+    }
+  }
+}
