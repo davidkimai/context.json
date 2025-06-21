@@ -20,7 +20,7 @@ As AI models, agents, and humans increasingly collaborate across tools, platform
 * **Extensible:** Supports custom fields for domain- or use-case-specific configuration.
 
 
-## context.json Specification (Draft 1.0)
+## context.json Specification (v1)
 
 The `context.json` standard defines a structured way to specify **context, instructions, actors, sources, boundaries, and collaboration history** for any AI-driven workflow. The goal: maximum clarity, security, and interoperability.
 
@@ -254,4 +254,4 @@ See [GitHub](https://github.com/davidkimai/context.json) for drafts, specificati
 Discussion and improvements welcome.
 
 
-context.json is an open standard ・ Draft 1.0 ・ [Contribute on GitHub](https://github.com/davidkimai/context.json/pulls)
+context.json is an open standard ・ v1 ・ [Contribute on GitHub](https://github.com/davidkimai/context.json/pulls)
