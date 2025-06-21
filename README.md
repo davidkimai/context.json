@@ -1,7 +1,7 @@
 
 # context.json
 
-## An open standard for context and collaboration in cross-platform AI
+## An open standard for defining AI context and collaboration across platforms
 
 ### What is context.json?
 
